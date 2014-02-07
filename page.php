@@ -8,16 +8,13 @@
 			the_post(); ?>
 
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
-			
-			<img src="<?php header_image(); ?>">
-
 			<h2 class="entry-title"> 
 				<a href="<?php the_permalink(); ?>"> 
 					<?php the_title(); ?> 
 				</a>
 			</h2>
 
-		
+			<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'thumb' ) ); ?>
 
 			<div class="entry-content">
 				<?php 
@@ -28,14 +25,10 @@
 					the_excerpt();
 				endif; ?>
 			</div>
-			<div class="postmeta"> 
-				<span class="author"> Posted by: <?php the_author(); ?></span>
-				<span class="date"> <?php the_date(); ?> </span>
-				<span class="num-comments"> <?php comments_number(); ?></span>
-				<span class="categories"><?php the_category(); ?></span>
-				<span class="tags"><?php the_tags(); ?></span> 
-			</div><!-- end postmeta -->			
+					
 		</article><!-- end post -->
+
+		<?php comments_template(); //show comments and comment form?>
 
 		<?php endwhile; ?>
 	<?php else: ?>

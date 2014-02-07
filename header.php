@@ -60,3 +60,9 @@
 		<?php get_search_form(); //includes searchform.php if it exists, if not, this outputs the default search bar ?>	
 
 	</header>
+	
+	<?php 
+	//check to make sure breadcrumb functionality exists!  (it should be in functions.php)
+	if( function_exists('dimox_breadcrumbs') ):
+		dimox_breadcrumbs();
+	endif; ?>
