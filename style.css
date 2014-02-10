@@ -133,7 +133,6 @@ header[role=banner] .top-bar nav{
 	margin:0;
 	padding:0;
 	max-height:79px;
-	overflow: hidden;
 }
 
 header nav ul li {

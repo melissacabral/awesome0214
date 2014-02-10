@@ -21,6 +21,14 @@
 				//if viewing a single post or page, show full content, otherwise show the excerpt (shortened content)
 				if( is_single() OR is_page() ):
 					the_content();
+					//display pagination if the post needs it (multi-page post)
+					wp_link_pages( array(
+						'before' => '<div class="pagination">',
+						'after' => '</div>',
+						'next_or_number' => 'next',
+						'nextpagelink' => 'Continue reading this post &rarr;',
+						'previouspagelink' => '&larr; Back',
+					) );
 				else:
 					the_excerpt();
 				endif; ?>
@@ -35,6 +43,27 @@
 		</article><!-- end post -->
 
 		<?php endwhile; ?>
+
+		<div class="pagination">
+			<?php //check to see if this is a singular or archive view
+			if( is_singular() ):
+				previous_post_link();
+				next_post_link();
+			else:
+				//archive!
+				//if pagenavi plugin is available, use it
+				//otherwise, do default WP prev/next buttons
+				if( function_exists('wp_pagenavi') ):
+					wp_pagenavi();
+				else:
+					next_posts_link( '&larr; Older Posts' ); 
+					previous_posts_link( 'Newer Posts &rarr;' );
+				endif;
+				
+			endif; ?>
+		</div>
+
+
 	<?php else: ?>
 
 	<h2>Sorry, no posts found</h2>

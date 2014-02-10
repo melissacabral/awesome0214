@@ -45,6 +45,20 @@ function awesome_comment_reply(){
 add_action( 'wp_print_scripts', 'awesome_comment_reply' );
 
 /**
+ * Set up Navigation Menus
+ * @since 0.1
+ */
+function awesome_menus(){
+	register_nav_menus( array(
+		'main_menu' => 'Main navigation at the top of every page',
+		'utilities' => 'Utility Bar Menu',
+	) );
+}
+add_action( 'init', 'awesome_menus' );
+
+
+
+/**
  * Dimox Breadcrumbs
  * http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
  * Since ver 0.1
