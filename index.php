@@ -42,6 +42,11 @@
 			</div><!-- end postmeta -->			
 		</article><!-- end post -->
 
+		<?php 
+		//displays comments if this is a singular post/page
+		//(file path, separate comments)
+		comments_template( '/comments.php', true );  ?>
+
 		<?php endwhile; ?>
 
 		<div class="pagination">

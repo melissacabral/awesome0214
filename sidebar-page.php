@@ -2,7 +2,7 @@
 
 	<?php 
 	//display the blog sidebar registered in functions.php
-	if( ! dynamic_sidebar( 'Blog Sidebar' ) ): 
+	if( ! dynamic_sidebar( 'Page Sidebar' ) ): 
 
 		//FALLBACK CONTENT in case widgets don't exist in the blog sidebar
 		?>

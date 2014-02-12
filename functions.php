@@ -56,6 +56,103 @@ function awesome_menus(){
 }
 add_action( 'init', 'awesome_menus' );
 
+/**
+ * Set up Widget Areas (Dynamic Sidebars)
+ * @since 0.1
+ */
+add_action( 'widgets_init', 'awesome_widget_areas' );
+function awesome_widget_areas(){
+	register_sidebar( array(
+		'name' => 'Home Area',
+		'id' => 'home_area',
+		'description' => 'Appears near the bottom of the front page',
+		'before_widget' => '<section id="%1$s" class="widget clearfix %2$s">',
+		'after_widget' => '</section>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => 'Blog Sidebar',
+		'id' => 'blog_sidebar',
+		'description' => 'Complementary content next to the blog and archives',
+		'before_widget' => '<section id="%1$s" class="widget clearfix %2$s">',
+		'after_widget' => '</section>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => 'Page Sidebar',
+		'id' => 'page_sidebar',
+		'description' => 'Complementary content next to page content',
+		'before_widget' => '<section id="%1$s" class="widget clearfix %2$s">',
+		'after_widget' => '</section>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => 'Footer Area',
+		'id' => 'footer_area',
+		'description' => 'Appears at the bottom of every view',
+		'before_widget' => '<section id="%1$s" class="widget clearfix %2$s">',
+		'after_widget' => '</section>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );	
+}
+
+/**
+ * Custom callback function for comments
+ * used on comments.php
+ */
+function awesome_comment($comment, $args, $depth) {
+		$GLOBALS['comment'] = $comment;
+		extract($args, EXTR_SKIP);
+
+		if ( 'div' == $args['style'] ) {
+			$tag = 'div';
+			$add_below = 'comment';
+		} else {
+			$tag = 'li';
+			$add_below = 'div-comment';
+		}
+?>
+		<<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
+		<?php if ( 'div' != $args['style'] ) : ?>
+		<div id="div-comment-<?php comment_ID() ?>" class="comment-body">
+		<?php endif; 
+
+		//BEGIN CUSTOMIZATION!
+		?>
+		<div class="comment-author vcard">
+		<?php if ($args['avatar_size'] != 0) echo get_avatar( $comment, $args['avatar_size'] ); ?>
+		<?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
+		</div>
+<?php if ($comment->comment_approved == '0') : ?>
+		<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
+		<br />
+<?php endif; ?>
+
+		<?php comment_text() ?>
+
+		<div class="comment-meta commentmetadata"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>">
+			<?php
+				/* translators: 1: date, 2: time */
+				printf( __('%1$s at %2$s'), get_comment_date(),  get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)'),'  ','' );
+			?>
+		</div>		
+
+		<div class="reply">
+		<?php comment_reply_link(array_merge( $args, array('add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
+		</div>
+
+		<?php 
+		//STOP EDITING THE COMMENT!!!
+
+		if ( 'div' != $args['style'] ) : ?>
+		</div>
+		<?php endif; ?>
+<?php
+        }
 
 
 /**
