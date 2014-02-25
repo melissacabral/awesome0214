@@ -60,6 +60,13 @@
 
 		<?php get_search_form(); //includes searchform.php if it exists, if not, this outputs the default search bar ?>	
 
+		<?php //display the company phone number from the rad options plugin 
+		$values = get_option('rad_options');
+		echo $values['phone'];
+		echo '<br />';
+		echo $values['email'];
+		?>
+
 	</header>
 	
 	<?php 
